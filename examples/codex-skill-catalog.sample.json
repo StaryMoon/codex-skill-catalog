@@ -1,0 +1,33 @@
+{
+  "roots": [
+    "~/Downloads/Codex_Workspace_2026/GitHub_Projects/codex-skill-catalog/examples/skills"
+  ],
+  "skills": [
+    {
+      "name": "paper-briefing",
+      "path": "~/Downloads/Codex_Workspace_2026/GitHub_Projects/codex-skill-catalog/examples/skills/paper-briefing/SKILL.md",
+      "title": "Paper Briefing",
+      "description": "Use when the user asks for a daily AI paper briefing, paper triage, or a concise research digest.",
+      "trigger_hint": "Use when the user asks for a daily AI paper briefing, paper triage, or a concise research digest.",
+      "line_count": 5,
+      "has_references": true,
+      "warnings": []
+    },
+    {
+      "name": "repo-doctor",
+      "path": "~/Downloads/Codex_Workspace_2026/GitHub_Projects/codex-skill-catalog/examples/skills/repo-doctor/SKILL.md",
+      "title": "Repo Doctor",
+      "description": "Use when the user wants a quick repository health check before publishing.",
+      "trigger_hint": "Use when the user wants a quick repository health check before publishing.",
+      "line_count": 5,
+      "has_references": false,
+      "warnings": []
+    }
+  ],
+  "config_path": "examples/config.sample.toml",
+  "config_sections": [
+    "model",
+    "mcp_servers.filesystem"
+  ],
+  "warnings": []
+}

@@ -1,0 +1,56 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "codex-skill-catalog"
+version = "0.1.0"
+description = "Generate a local Markdown and JSON catalog for Codex-style skills, plugins, and agent workspace setup."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [
+  { name = "Minghao Liu", email = "minghao13187@gmail.com" }
+]
+keywords = [
+  "codex",
+  "ai-agent",
+  "skills",
+  "markdown",
+  "developer-tools",
+  "local-first"
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Documentation",
+  "Topic :: Utilities"
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/StaryMoon/codex-skill-catalog"
+Repository = "https://github.com/StaryMoon/codex-skill-catalog"
+Issues = "https://github.com/StaryMoon/codex-skill-catalog/issues"
+
+[project.scripts]
+codex-skill-catalog = "codex_skill_catalog.cli:main"
+cscat = "codex_skill_catalog.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/codex_skill_catalog"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["UP006", "UP007"]

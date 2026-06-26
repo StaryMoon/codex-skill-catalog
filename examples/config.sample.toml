@@ -1,0 +1,5 @@
+[model]
+name = "gpt-example"
+
+[mcp_servers.filesystem]
+command = "example-filesystem-server"
