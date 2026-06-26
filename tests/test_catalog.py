@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from codex_skill_catalog.render import render_markdown
+from codex_skill_catalog.render import render_html, render_markdown
 from codex_skill_catalog.scanner import scan_catalog
 
 
@@ -29,6 +29,7 @@ class CatalogTest(unittest.TestCase):
             self.assertTrue(catalog.skills[0].has_references)
             self.assertIn("mcp_servers.demo", catalog.config_sections)
             self.assertIn("Paper Helper", markdown)
+            self.assertIn("<table>", render_html(catalog))
 
     def test_json_output_is_serializable(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

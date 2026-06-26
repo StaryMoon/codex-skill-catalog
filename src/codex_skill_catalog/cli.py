@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from .render import render_markdown
+from .render import render_html, render_markdown
 from .scanner import scan_catalog
 
 
@@ -30,6 +30,7 @@ def main() -> int:
         help="Markdown output path.",
     )
     parser.add_argument("--json", default="", help="Optional JSON inventory output path.")
+    parser.add_argument("--html", default="", help="Optional standalone HTML dashboard output path.")
     parser.add_argument(
         "--title",
         default="Codex Skill Catalog",
@@ -51,12 +52,19 @@ def main() -> int:
         json_output.parent.mkdir(parents=True, exist_ok=True)
         json_output.write_text(catalog.to_json(), encoding="utf-8")
 
+    if args.html:
+        html_output = Path(args.html)
+        html_output.parent.mkdir(parents=True, exist_ok=True)
+        html_output.write_text(render_html(catalog, title=args.title), encoding="utf-8")
+
     if args.print:
         print(markdown)
     else:
         print(f"Wrote Markdown catalog to {output}")
         if args.json:
             print(f"Wrote JSON inventory to {args.json}")
+        if args.html:
+            print(f"Wrote HTML dashboard to {args.html}")
         print(f"Found {len(catalog.skills)} skills across {len(catalog.roots)} root(s)")
     return 0
 

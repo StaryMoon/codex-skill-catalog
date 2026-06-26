@@ -23,6 +23,7 @@ Agent workflows are getting messy in a very specific way: after a few weeks, you
 - Detect duplicate skill names across roots.
 - Inspect config TOML section names without printing values.
 - Generate a Markdown catalog for GitHub, Obsidian, or migration notes.
+- Generate a standalone HTML dashboard with summary cards and searchable-by-browser tables.
 - Generate JSON inventory for scripts and automation.
 - Zero runtime dependencies.
 - Standard-library tests.
@@ -38,7 +39,8 @@ PYTHONPATH=src python -m codex_skill_catalog.cli \
   --root examples/skills \
   --config examples/config.sample.toml \
   --output examples/CODEX_SKILL_CATALOG.sample.md \
-  --json examples/codex-skill-catalog.sample.json
+  --json examples/codex-skill-catalog.sample.json \
+  --html examples/CODEX_SKILL_CATALOG.sample.html
 ```
 
 Scan your real local setup:
@@ -47,13 +49,14 @@ Scan your real local setup:
 PYTHONPATH=src python -m codex_skill_catalog.cli \
   --root ~/.codex/skills \
   --output CODEX_SKILL_CATALOG.md \
-  --json codex-skill-catalog.json
+  --json codex-skill-catalog.json \
+  --html codex-skill-catalog.html
 ```
 
 After package install:
 
 ```bash
-cscat --root ~/.codex/skills --output CODEX_SKILL_CATALOG.md --json catalog.json
+cscat --root ~/.codex/skills --output CODEX_SKILL_CATALOG.md --json catalog.json --html catalog.html
 ```
 
 ## Example Report
@@ -80,7 +83,7 @@ cscat --root ~/.codex/skills --output CODEX_SKILL_CATALOG.md --json catalog.json
 
 ```bash
 usage: codex-skill-catalog [-h] [--root ROOT] [--config CONFIG]
-                           [--output OUTPUT] [--json JSON]
+                           [--output OUTPUT] [--json JSON] [--html HTML]
                            [--title TITLE] [--print]
 
 Generate a local Markdown and JSON catalog for Codex-style skills.
@@ -92,6 +95,7 @@ Important flags:
 - `--config`: TOML config path. Defaults to `~/.codex/config.toml`.
 - `--output`: Markdown report path.
 - `--json`: optional JSON inventory path.
+- `--html`: optional standalone HTML dashboard path.
 - `--print`: print Markdown to stdout.
 
 ## Privacy Model
@@ -121,9 +125,9 @@ This project is unofficial and independent. It is designed around the common `SK
 
 - [ ] Add plugin-cache scanning mode.
 - [ ] Add config diff reports between two machines.
-- [ ] Add optional redaction of local usernames in generated Markdown.
+- [x] Add home-directory redaction in generated reports.
 - [ ] Add GitHub Action example for private dotfiles inventory.
-- [ ] Add HTML report output.
+- [x] Add HTML report output.
 
 ## License
 
