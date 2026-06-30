@@ -38,6 +38,31 @@ class CatalogTest(unittest.TestCase):
             self.assertEqual(payload["skills"], [])
             self.assertTrue(payload["warnings"])
 
+    def test_frontmatter_only_skill_uses_metadata_fallbacks(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir) / "skills"
+            skill = root / "social-action-review"
+            skill.mkdir(parents=True)
+            (skill / "SKILL.md").write_text(
+                "---\n"
+                "name: Social Action Review\n"
+                "description: Use when reviewing approval-gated social posting skills.\n"
+                "---\n",
+                encoding="utf-8",
+            )
+
+            catalog = scan_catalog([root])
+
+            self.assertEqual(catalog.skills[0].title, "Social Action Review")
+            self.assertEqual(
+                catalog.skills[0].description,
+                "Use when reviewing approval-gated social posting skills.",
+            )
+            self.assertEqual(
+                catalog.skills[0].trigger_hint,
+                "Use when reviewing approval-gated social posting skills.",
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

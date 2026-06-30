@@ -20,6 +20,7 @@ Agent workflows are getting messy in a very specific way: after a few weeks, you
 
 - Scan one or more Codex-style skill roots.
 - Extract skill directory name, `SKILL.md` title, first description paragraph, trigger/use-case hint, line count, and reference-folder presence.
+- Use simple frontmatter `name` and `description` values as fallbacks for compact skill files.
 - Detect duplicate skill names across roots.
 - Inspect config TOML section names without printing values.
 - Generate a Markdown catalog for GitHub, Obsidian, or migration notes.

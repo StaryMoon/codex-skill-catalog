@@ -10,6 +10,7 @@ from typing import Dict, Iterable, List, Optional
 
 HEADING_RE = re.compile(r"^#\s+(.+?)\s*$", re.MULTILINE)
 TRIGGER_RE = re.compile(r"\b(use|trigger|when|invoke|call)\b", re.IGNORECASE)
+FRONTMATTER_RE = re.compile(r"\A---\s*\n(?P<body>.*?)\n---\s*(?:\n|\Z)", re.DOTALL)
 
 
 @dataclass
@@ -90,9 +91,12 @@ def _read_skill(skill_file: Path) -> SkillEntry:
         text = skill_file.read_text(encoding="utf-8", errors="replace")
         warnings.append("SKILL.md had invalid UTF-8 bytes and was decoded with replacement")
 
-    title = _first_heading(text) or skill_file.parent.name
-    description = _first_paragraph(text)
-    trigger_hint = _first_triggerish_line(text)
+    body_text = _strip_frontmatter(text)
+    frontmatter_name = _frontmatter_scalar(text, "name")
+    frontmatter_description = _frontmatter_scalar(text, "description")
+    title = _first_heading(body_text) or frontmatter_name or skill_file.parent.name
+    description = _first_paragraph(body_text) or frontmatter_description
+    trigger_hint = _first_triggerish_line(body_text) or frontmatter_description
     has_references = any(
         child.name.lower() in {"references", "templates", "examples", "scripts"}
         for child in skill_file.parent.iterdir()
@@ -118,6 +122,24 @@ def _read_skill(skill_file: Path) -> SkillEntry:
 def _first_heading(text: str) -> str:
     match = HEADING_RE.search(text)
     return match.group(1).strip() if match else ""
+
+
+def _strip_frontmatter(text: str) -> str:
+    return FRONTMATTER_RE.sub("", text, count=1)
+
+
+def _frontmatter_scalar(text: str, key: str) -> str:
+    match = FRONTMATTER_RE.match(text)
+    if not match:
+        return ""
+    for raw_line in match.group("body").splitlines():
+        stripped = raw_line.strip()
+        if not stripped or stripped.startswith("#") or ":" not in stripped:
+            continue
+        field, value = stripped.split(":", 1)
+        if field.strip() == key:
+            return value.strip().strip("\"'")
+    return ""
 
 
 def _first_paragraph(text: str) -> str:
