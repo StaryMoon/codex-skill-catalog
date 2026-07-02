@@ -4,6 +4,12 @@ Generate a clean Markdown and JSON catalog for local Codex-style skills, plugins
 
 This is an unofficial, local-first developer utility. It scans `SKILL.md` files, extracts a readable skill index, checks for missing metadata, and optionally inspects `~/.codex/config.toml` section names without printing secret values.
 
+<p align="center">
+  <img src="assets/screenshots/openai-codex.png" alt="OpenAI Codex public GitHub page screenshot" width="880">
+</p>
+
+<sub>Image source: public OpenAI Codex GitHub page screenshot, [https://github.com/openai/codex](https://github.com/openai/codex). Used as a visual reference for Codex-style local agent workflows; not an endorsement by OpenAI.</sub>
+
 ## Why This Exists
 
 Agent workflows are getting messy in a very specific way: after a few weeks, you may have custom skills, bundled plugin skills, copied prompt packs, local scripts, MCP server configs, and half-forgotten experiments. The actual question becomes:
